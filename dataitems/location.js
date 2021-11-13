@@ -83,7 +83,7 @@ DataItemProvider.register("map", {
       return buildUrl("https://maps.googleapis.com", {
       path: "maps/api/staticmap",
       queryParams: {
-        size: self.width + "x" + self.height,
+        size: "800x600",
         center: [lat, lng],
         markers: [lat, lng],
         key: self.config.maps.apiKey,
