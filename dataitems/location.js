@@ -82,7 +82,7 @@ DataItemProvider.register("map", {
         markers: [lat, lng],
         key: self.config.maps.apiKey,
           zoom: self.zoom,
-	  map_id: '8e22d7400c0ee5a2'
+	  map_id: '8e22d7400c0ee5a2',
       }
     });
   }
