@@ -37,7 +37,7 @@ DataItemProvider.register("map", {
 
     this.display = true;
     var url = this.getMap(data.latitude, data.longitude);
-    this.icon = `<img alt="map" class="map" src="${url}" />`;
+    this.icon = `<img alt="map" class="map" src="${url}" width="100%" />`;
   },
 
   // Check that our config value is of the correct type, otherwise set the default
@@ -81,7 +81,8 @@ DataItemProvider.register("map", {
         center: [lat, lng],
         markers: [lat, lng],
         key: self.config.maps.apiKey,
-        zoom: self.zoom
+          zoom: self.zoom,
+	  map_id: '8e22d7400c0ee5a2'
       }
     });
   }

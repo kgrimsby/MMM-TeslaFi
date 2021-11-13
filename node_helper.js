@@ -31,7 +31,8 @@ module.exports = NodeHelper.create({
       }
     });
 
-    Log.info("TeslaFi sending request");
+      Log.info("TeslaFi sending request");
+      Log.info(url)
     request(
       {
         url: url,
@@ -41,7 +42,8 @@ module.exports = NodeHelper.create({
       function (error, response, body) {
         Log.info("TeslaFi response was " + response.statusCode);
         if (!error && response.statusCode === 200) {
-          Log.info("TeslaFi sending data");
+            Log.info("TeslaFi sending data");
+	    Log.info(JSON.parse(body))
           self.sendSocketNotification("DATA", body);
         }
       }

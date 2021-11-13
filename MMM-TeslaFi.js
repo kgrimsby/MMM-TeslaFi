@@ -73,7 +73,9 @@ Module.register("MMM-TeslaFi", {
     this.sendSocketNotification("CONFIG", this.config);
     this.providers = [];
 
-    for (var identifier in DataItemProvider.providers) {
+      for (var identifier in DataItemProvider.providers) {
+	  Log.info('Found provider: ')
+	  Log.info(identifier)
       this.providers[identifier] = new DataItemProvider.providers[identifier](
         this
       );
@@ -90,24 +92,28 @@ Module.register("MMM-TeslaFi", {
       self.updateDom(self.config.animationSpeed);
     }, this.config.refreshInterval);
   },
-  getDom: function () {
+    getDom: function () {
+	Log.info('WRITING DOM FOR TESLA')
+	
     var wrapper = document.createElement("div");
     if (!this.loaded) {
       wrapper.innerHTML = this.translate("LOADING");
-      wrapper.className = "dimmed light small";
+	wrapper.className = "dimmed light small";
+	Log.info('returning wrapper')
       return wrapper;
     }
+	Log.info('Loading done...cont')
     if (this.config.apiKey === "") {
       wrapper.innerHTML = "No Tesla Fi <i>apiKey</i> set in config file.";
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    if (!this.data) {
+    if (!this.tesla_data) {
       wrapper.innerHTML = "No data";
       wrapper.className = "dimmed light small";
       return wrapper;
     }
-    var t = this.data;
+    var t = this.tesla_data;
     var content = document.createElement("div");
 
     content.innerHTML = "";
@@ -179,15 +185,17 @@ Module.register("MMM-TeslaFi", {
       if (!data) {
         return;
       }
-      this.data = data;
-      this.loaded = true;
+      this.tesla_data = data;
+	this.loaded = true;
+	Log.info('Data loaded')
+	Log.info(data)
 
       // Tell all of our data item providers about the new data
       for (var identifier in this.providers) {
         this.providers[identifier].onDataUpdate(data);
       }
 
-      this.updateDom(this.config.animationSpeed);
+	this.updateDom(this.config.animationSpeed);
       this.resetDomUpdate();
     }
   },

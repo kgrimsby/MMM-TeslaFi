@@ -20,15 +20,18 @@
   text-align: left;
   border-bottom: 1px solid #666;
   line-height: 2rem;
+  font-weight: 100;
 }
-
+td.icon {
+    width: 30px;
+}
 .mqtt-title .icon {
   color: #fff;
 }
 
 .field {
   text-align: left;
-  font-weight: bold;
+  font-weight: 200;
   padding-right: 20px;
 }
 
