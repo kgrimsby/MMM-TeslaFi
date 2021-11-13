@@ -1,11 +1,17 @@
-/*
- * Display the current location of the vehicle within a static Google Maps window
- * Size of the map can be modified using the `maps.zoom`, `maps.width` and `maps.height` configuration options
- * Requires a valid Google Maps API key - see the README for more information
- *
- * Created by Matt Dyson
- * Adapted from original code by Justyn R
- */
+
+DataItemProvider.register("address", {
+    icon: '<span class="zmdi zmdi-map zmdi-hc-fw"></span>',
+    
+    onDataUpdate(data) {
+	this.field = '-';
+	this.display = true;
+	console.log({ data })
+	if (data.address.length > 0) {
+	    this.field = data.address[0].formatted_address;
+	}
+    }
+});
+
 DataItemProvider.register("map", {
   onDataUpdate(data) {
     this.height = this.setParam(this.config.maps.height, "number", 150);
@@ -19,7 +25,7 @@ DataItemProvider.register("map", {
 
     if (!this.hasApiKey()) {
       this.display = true;
-      this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
+	this.icon = `<span class="zmdi zmdi-alert-octagon sentry zmdi-hc-fw"></span>`;
       this.field = "MAP ERROR!";
       this.value = "Missing Google Maps API Key";
       return;
@@ -74,7 +80,7 @@ DataItemProvider.register("map", {
 
     var self = this;
 
-    return buildUrl("https://maps.googleapis.com", {
+      return buildUrl("https://maps.googleapis.com", {
       path: "maps/api/staticmap",
       queryParams: {
         size: self.width + "x" + self.height,

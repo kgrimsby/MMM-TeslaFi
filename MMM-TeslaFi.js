@@ -181,7 +181,7 @@ Module.register("MMM-TeslaFi", {
     } else if (notification === "DATA") {
       Log.info("TeslaFi recevied new data");
       // We've received data from TeslaFi, so parse and display it
-      var data = JSON.parse(payload);
+      var data = payload;
       if (!data) {
         return;
       }
