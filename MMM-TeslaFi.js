@@ -116,11 +116,11 @@ Module.register("MMM-TeslaFi", {
     }
     var t = this.tesla_data;
     var content = document.createElement("div");
-	content.style = 'background: url(https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$BP02,$ADPX2,$AU01,$APF1,$APH4,$APPB,$X028,$BTX5,$BS00,$BCMB,$CH04,$CF00,$CW02,$CONO,$X039,$IDBA,$X027,$DRLH,$DU00,$AF02,$FMP6,$FG02,$DCF0,$FR04,$X007,$X011,$INBTB,$PI01,$IX00,$X001,$LP01,$MI01,$X037,$MDLS,$DV4W,$X025,$X003,$PPMR,$PS01,$PK00,$X031,$PX00,$PF00,$X043,$TM00,$BR04,$REEU,$RFP2,$X014,$ME02,$QTTB,$SR07,$SP01,$X021,$SC04,$SU01,$TR00,$DSH5,$MT75A,$UTPB,$WTAS,$YFCC,$CPF0&view=STUD_3QTR&model=ms&size=400&bkba_opt=1&version=v0028d202111110422&crop=0,0,0,0&version=v0028d202111110422); display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; width: 400px; min-height: 160px; align-content: flex-start;'
+	content.style = 'background: url(https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$BP02,$ADPX2,$AU01,$APF1,$APH4,$APPB,$X028,$BTX5,$BS00,$BCMB,$CH04,$CF00,$CW02,$CONO,$X039,$IDBA,$X027,$DRLH,$DU00,$AF02,$FMP6,$FG02,$DCF0,$FR04,$X007,$X011,$INBTB,$PI01,$IX00,$X001,$LP01,$MI01,$X037,$MDLS,$DV4W,$X025,$X003,$PMNG,$PS01,$PK00,$X031,$PX00,$PF00,$X043,$TM00,$BR04,$REEU,$RFP2,$X014,$ME02,$QTTB,$SR07,$SP01,$X021,$SC04,$SU01,$TR00,$DSH5,$MT75A,$UTPB,$WTAS,$YFCC,$CPF0&view=STUD_3QTR&model=ms&size=400&bkba_opt=1&version=v0028d202111110422&crop=0,0,0,0&version=v0028d202111110422); display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; width: 400px; min-height: 160px; align-content: flex-start;'
 	var header = document.createElement('h2')
 	header.className = 'mqtt-title'
 	header.innerHTML = `<span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}`
-	wrapper.appendChild(header)
+	//wrapper.appendChild(header)
 	//content.innerHTML = "";
 
 	wrapper.appendChild(content);
@@ -152,12 +152,13 @@ Module.register("MMM-TeslaFi", {
 	} else if (dataItem === 'address') {
 	    var temp = document.createElement('div')
 	    temp.innerHTML = `${icon} ${value}`
-	    temp.style = 'width: 100%;';
+	    temp.style = 'width: 100%; margin-top: 1em; color: #fff;';
 	    content.appendChild(temp)
 	} else {
 	    var temp = document.createElement('div')
-	    temp.style = 'flex: 0 0 auto; margin-bottom: .5em; box-sizing: border-box; width: 50%;' + (index % 2 ? 'text-align: right;' : 'text-align: left;');
-	    temp.innerHTML = index % 2 ? `${value} ${icon}` : `${icon} ${value}`;
+	    temp.className = 'text';
+	    temp.style = 'flex: 0 0 auto; margin-bottom: .2em; box-sizing: border-box; width: 50%;' + (index % 2 ? 'text-align: right;' : 'text-align: left;');
+	    temp.innerHTML = index % 2 ? `${value || field} ${icon}` : `${icon} ${value || field}`;
 	    content.appendChild(temp)
 	}
     } // end foreach loop of items

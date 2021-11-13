@@ -12,6 +12,10 @@
   font-size: 2rem;
 }
 
+.text {
+    color: #fff;
+}
+
 .mqtt-title {
   margin-bottom: 0;
   padding-bottom: 0;
