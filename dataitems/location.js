@@ -7,7 +7,7 @@ DataItemProvider.register("address", {
 	this.display = true;
 	console.log({ data })
 	if (data.address.length > 0) {
-	    this.field = data.address[0].formatted_address;
+	    this.value = data.address[0].formatted_address;
 	}
     }
 });

@@ -95,7 +95,8 @@ Module.register("MMM-TeslaFi", {
     getDom: function () {
 	Log.info('WRITING DOM FOR TESLA')
 	
-    var wrapper = document.createElement("div");
+	var wrapper = document.createElement("div");
+	wrapper.style = 'width: 400px;'
     if (!this.loaded) {
       wrapper.innerHTML = this.translate("LOADING");
 	wrapper.className = "dimmed light small";
@@ -115,15 +116,17 @@ Module.register("MMM-TeslaFi", {
     }
     var t = this.tesla_data;
     var content = document.createElement("div");
+	content.style = 'background: url(https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$BP02,$ADPX2,$AU01,$APF1,$APH4,$APPB,$X028,$BTX5,$BS00,$BCMB,$CH04,$CF00,$CW02,$CONO,$X039,$IDBA,$X027,$DRLH,$DU00,$AF02,$FMP6,$FG02,$DCF0,$FR04,$X007,$X011,$INBTB,$PI01,$IX00,$X001,$LP01,$MI01,$X037,$MDLS,$DV4W,$X025,$X003,$PPMR,$PS01,$PK00,$X031,$PX00,$PF00,$X043,$TM00,$BR04,$REEU,$RFP2,$X014,$ME02,$QTTB,$SR07,$SP01,$X021,$SC04,$SU01,$TR00,$DSH5,$MT75A,$UTPB,$WTAS,$YFCC,$CPF0&view=STUD_3QTR&model=ms&size=400&bkba_opt=1&version=v0028d202111110422&crop=0,0,0,0&version=v0028d202111110422); display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; width: 400px; min-height: 160px; align-content: flex-start;'
+	var header = document.createElement('h2')
+	header.className = 'mqtt-title'
+	header.innerHTML = `<span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}`
+	wrapper.appendChild(header)
+	//content.innerHTML = "";
 
-    content.innerHTML = "";
-    var table = `
-      <h2 class="mqtt-title"><span class="zmdi zmdi-car zmdi-hc-1x icon"></span> ${t.display_name}</h2>
-      <table class="small">
-		`;
+	wrapper.appendChild(content);
 
     for (var index in this.config.items) {
-      dataItem = this.config.items[index];
+	dataItem = this.config.items[index];
 
       if (!this.providers.hasOwnProperty(dataItem)) {
         Log.error("Could not find " + dataItem + " in list of valid providers");
@@ -142,35 +145,24 @@ Module.register("MMM-TeslaFi", {
       var field = this.providers[dataItem].field;
       var value = this.providers[dataItem].value;
 
-      if (field === null && value === null) {
-        table += `
-          <tr>
-            <td class="icon" colspan="3">${icon}</td>
-          </tr>
-        `;
-      } else {
-        var colspan = 1;
-        if (value === null) {
-          colspan = 2;
-        }
-
-        table += `
-          <tr>
-            <td class="icon">${icon}</td>
-            <td class="field" colspan="${colspan}">${field}</td>
-        `;
-        if (value !== null) {
-          table += `<td class="value">${value}</td>`;
-        }
-        table += `</tr>`;
-      }
+	if (dataItem === 'map') {
+	    var temp = document.createElement('div')
+	    temp.innerHTML = `${icon}`
+	    wrapper.appendChild(temp)
+	} else if (dataItem === 'address') {
+	    var temp = document.createElement('div')
+	    temp.innerHTML = `${icon} ${value}`
+	    temp.style = 'width: 100%;';
+	    content.appendChild(temp)
+	} else {
+	    var temp = document.createElement('div')
+	    temp.style = 'flex: 0 0 auto; margin-bottom: .5em; box-sizing: border-box; width: 50%;' + (index % 2 ? 'text-align: right;' : 'text-align: left;');
+	    temp.innerHTML = index % 2 ? `${value} ${icon}` : `${icon} ${value}`;
+	    content.appendChild(temp)
+	}
     } // end foreach loop of items
 
-    table += "</table>";
-
-    wrapper.innerHTML = table;
     wrapper.className = "light small";
-    wrapper.appendChild(content);
     return wrapper;
   },
 
