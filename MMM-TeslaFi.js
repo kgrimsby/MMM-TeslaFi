@@ -17,9 +17,9 @@ Module.register("MMM-TeslaFi", {
     dataTimeout: 0,
     maps: {
       apiKey: "",
-      width: 300,
-      height: 150,
-      zoom: 13,
+      width: 800,
+      height: 400,
+      zoom: 16,
       exclude: []
     },
     precision: 1, // How many decimal places to round values to

@@ -83,11 +83,11 @@ DataItemProvider.register("map", {
       return buildUrl("https://maps.googleapis.com", {
       path: "maps/api/staticmap",
       queryParams: {
-        size: "800x600",
-        center: [lat, lng],
-        markers: [lat, lng],
-        key: self.config.maps.apiKey,
-          zoom: self.zoom,
+          size: "800x400",
+          center: [lat, lng],
+          markers: [lat, lng],
+          key: self.config.maps.apiKey,
+          zoom: 17,
 	  map_id: '8e22d7400c0ee5a2',
       }
     });
